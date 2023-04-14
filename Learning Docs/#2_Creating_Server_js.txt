@@ -1,0 +1,17 @@
+server.js file will be our main entry point to our application.
+
+require express 
+
+require dotenv (For dotenv we need a config file with all our environment variables.)
+
+create config folder => create config.env
+    NODE_ENV=developemnt
+    PORT=5000
+
+Load config variables in the server.js => dotenv.comfig({ path: './config/config.env' })
+
+initialize app variable with express
+
+
+
+

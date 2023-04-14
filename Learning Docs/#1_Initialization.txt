@@ -1,0 +1,120 @@
+Step 1: Creating a package.json file => Command on terminal => npm init
+
+Step 2: installing packages
+        #1 => nmp i express     //Express is our web framework.
+                                Express provides a number of features and capabilities, including:
+
+                                ROUTING - Express provides a simple and easy-to-use routing mechanism, which allows developers to define routes for their web applications and APIs.
+
+                                MIDDLEWARE - Express supports middleware, which allows developers to add functionality to their applications such as authentication, logging, and error handling.
+
+                                TEMPLATING - Express provides support for a variety of templating engines, such as Pug, EJS, and Handlebars, which allows developers to easily create dynamic web pages.
+
+                                DATABASE INTEGRATION - Express can be easily integrated with a variety of databases, such as MongoDB, MySQL, and PostgreSQL.
+
+                                STATIC FILE SERVING - Express can serve static files, such as images, CSS, and JavaScript, from a directory on the server.
+
+        <--------------------------------------------------------------------------------------------------------------------------------->
+
+        #2 => npm i dotenv      //dotenv is a popular npm package used in backend development that loads environment variables from a 
+                                .env  file into the Node.js process.env object.
+                                Environment variables are key-value pairs that are used to store configuration information for a particular application or system. In backend development, environment variables are commonly used to store sensitive information such as API keys, database credentials, and other secrets that should not be exposed in the code.
+
+                                By using dotenv, developers can store their environment variables in a separate .env file and load them into the application at runtime. This makes it easier to manage and maintain environment variables, and also allows developers to keep sensitive information separate from the rest of their code.
+
+        <--------------------------------------------------------------------------------------------------------------------------------->
+
+        #3 => npm i -D nodemon  //installs the nodemon package as a development dependency for a Node.js project using the npm 
+                                package manager.
+
+                                nodemon is a utility that monitors the changes in the source code of a Node.js application and automatically restarts the application when changes are detected. This saves developers the trouble of manually stopping and restarting the application every time they make changes to the code.
+
+                                The -D flag tells npm to install the nodemon package as a development dependency, which means that it will be installed only for development purposes and will not be included in the production build of the application.
+
+                                To use nodemon in a Node.js project, developers can add a nodemon script to the package.json file that starts the application with nodemon
+
+                                example :
+                                {
+                                    "name": "my-node-app",
+                                    "version": "1.0.0",
+                                    "scripts": {
+                                        "start": "node index.js",
+                                        "dev": "nodemon index.js"
+                                    },
+                                    "devDependencies": {
+                                        "nodemon": "^2.0.12"
+                                    }
+                                }
+
+                                In this example, the dev script uses nodemon to start the application instead of the regular start script. Developers can then run the dev script using the npm run dev command to start the application with nodemon and monitor changes to the source code.
+
+                                The scripts property in the package.json file is a key-value map that defines a set of commands that can be executed using the npm run command. These commands are typically used for various tasks such as building, testing, and running the application.
+
+                                When the npm run command is executed with a script name as an argument, npm looks for the corresponding script in the scripts property and executes the command associated with that script.
+
+                                
+        <--------------------------------------------------------------------------------------------------------------------------------->
+
+        **DEVELOPMENT ENVIRONMENT VS PRODUCTION ENVIRONMENT **
+
+        In the context of backend programming, development refers to the process of creating, testing, and refining code to build an application, while production refers to the live environment in which the application is deployed and used by end-users.
+
+        In development, programmers write, test, and modify code to create an application. They typically work in a controlled environment, such as a development server, where they can experiment and test different features and functionalities of the application. Developers may also use tools like debuggers and loggers to help identify and fix bugs in the code.
+
+        In production, the application is running in a live environment, where it is being used by end-users. The application needs to be reliable, performant, and secure. The production environment is typically optimized for performance and may use different hardware and software configurations than the development environment. Programmers need to ensure that the application is stable, and any issues are identified and resolved quickly to minimize downtime and maintain user satisfaction.
+
+        Overall, the main difference between development and production in backend programming is the environment in which the application is being used. In development, the focus is on building and refining the application, while in production, the focus is on delivering a stable and reliable product that meets the needs of its users.
+
+        The production environment and development environment are two different configurations in which an application can be run. Here are the key differences between them:
+
+        Purpose: The development environment is designed to aid in the development and testing of an application, while the production environment is intended to run the application in a live setting.
+
+        Hardware and Infrastructure: The hardware and infrastructure requirements for the development environment are usually lower compared to the production environment. Developers typically run the development environment on their local machines or on a test server, whereas the production environment runs on a dedicated production server or cloud infrastructure.
+
+        Security: Security is a top priority in the production environment. Production servers need to be secured and monitored to ensure the safety of the application, while the development environment may have lower security requirements.
+
+        Logging and Debugging: Developers need more detailed logging and debugging capabilities in the development environment to help with debugging and testing. In contrast, the production environment typically has less verbose logging and limited debugging features to help ensure performance and security.
+
+        Performance: The performance requirements of the production environment are much higher than the development environment. Applications in production need to handle high traffic and scale to meet user demand, whereas the development environment typically has a smaller user base.
+
+        Configuration: The configuration of the development environment may be more flexible to accommodate developers' needs, while the production environment configuration is typically optimized for performance and security.
+
+
+        <--------------------------------------------------------------------------------------------------------------------------------->
+
+
+        #4 => In package.json file add following to the scripts tag
+              "start": "NODE_ENV=production node server"
+              "dev": "nodemon server"
+
+              There is a small issue in windows 
+              We have to install :: npm install --save-dev cross-env
+
+              In package.json file add following to the scripts tag
+              "start": "cross-env NODE_ENV=production node server"
+              "dev": "nodemon server"
+
+                        Adding NODE_ENV=production node server to the scripts section in the package.json file is a common practice for running a Node.js application in a production environment. This command sets the NODE_ENV environment variable to production before starting the Node.js server.
+
+                        The NODE_ENV environment variable is used to determine the environment in which the application is running. Setting it to production indicates that the application is running in a production environment, which typically requires different configurations and optimizations than a development environment.
+
+                        By setting the NODE_ENV variable to production, the application can take advantage of production-specific optimizations such as caching, minification, and other performance improvements. It also helps prevent accidental modification of production data or configurations that may occur if the application is run in a development environment.
+
+                        When the NODE_ENV environment variable is set to production, some Node.js modules and frameworks may enable additional optimizations or disable debugging features to improve performance. For example, the Express.js framework may cache view templates when running in production mode.
+
+                        Overall, adding NODE_ENV=production node server to the scripts section in the package.json file is a best practice for running a Node.js application in a production environment and can help ensure that the application runs with optimal performance and stability.
+
+
+                        Adding "dev": "nodemon server" to the scripts section in the package.json file is a common practice for starting a Node.js server in the development environment using the nodemon package.
+
+                        nodemon is a tool that automatically restarts the Node.js server whenever changes are made to the code. This can be very useful during development, as it saves time by eliminating the need to manually restart the server after every change.
+
+                        By adding "dev": "nodemon server" to the scripts section, developers can start the server in development mode by running the npm run dev command. This command will start the Node.js server using nodemon and will automatically restart the server whenever changes are made to the code.
+
+                        Overall, adding "dev": "nodemon server" to the scripts section in the package.json file is a best practice for starting a Node.js server in the development environment and can help make the development process more efficient and productive.
+
+                        
+        <--------------------------------------------------------------------------------------------------------------------------------->
+
+        
+              
