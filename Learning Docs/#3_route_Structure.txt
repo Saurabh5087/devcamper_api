@@ -1,0 +1,17 @@
+ROUTE STRUCTURE
+
+/api/v1/bootcamps
+/api/v1/courses
+/api/v1/reviews
+/api/v1/auth
+/api/v1/users
+
+<================================================>
+
+Create a new folder name routes to store all the routes files and at last module.exports=router;
+
+require this new routes files in the server.js
+
+Mount the router onto a specific url by using app.use();
+
+<================================================>

@@ -1,0 +1,12 @@
+A middleWare is a function which has access to request response cycle and runs during that cycle.
+
+We can install third party middleware named morgan for logging purpose.
+
+Update in server.js
+
+    const morgan = require('morgan');
+
+    // Dev logging Middleware
+    if (process.env.NODE_ENV === 'development') {
+        app.use(morgan('dev'));
+    }

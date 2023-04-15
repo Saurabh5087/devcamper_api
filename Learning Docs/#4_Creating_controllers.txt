@@ -1,0 +1,5 @@
+The routes files will get a lot complicated as we start writing the code for 
+different routes.
+
+What we can do is create a different folder name controller and include all
+the routing code logic in these files

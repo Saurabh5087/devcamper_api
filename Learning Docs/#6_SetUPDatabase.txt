@@ -1,0 +1,51 @@
+We can download MongoDb Compass GUI and connect with Atlas.
+
+mongoose can be used for object modelling in Node.Js 
+    * Provides an abstraction layer to connect with our database.
+    * To connect, to write queries , create custom mongoose middleware, create models and validation.
+
+install mongoose ==> npm i mongoose
+
+In config folder create db.Js
+    * require mongoose.
+    * create a connectDB function which can be exported.
+    * To connect to database we need to use the method provided by mongoose i.e  .connect()
+    * When we use mongoose method it returns a promise.
+    * The mongoose.connect() takes THE URI as it's first parameter. The URI is taken from the mongoDB.Atlas.
+        To get the URI Got your database in Atlas =>  click on connect => Connect to application or Visual Studio code => Copy the URI
+    * Put the URI in config.env file ==> 
+        MONGO_URI = (the uri copied from Atlas). [Upadte databseName and the password in the uri and remove the angular brackets].
+    * So finally the db.js file will look like below
+        
+        const mongoose = require('mongoose');
+        const connectDB = async () => {
+            const conn = await mongoose.connect(process.env.MONGO_URI, {
+                useNewURLParser: true,
+                useUnifiedTopology: true
+            });
+
+            console.log(`MongoDB Connected: ${conn.connection.host}`);
+        };
+        module.exports = connectDB;
+
+Also to actually connect to database we need to do some changes in the server.js file
+    const connectDB = require('./config/db');
+
+    // Connect to database
+    connectDB();
+
+    const PORT = process.env.PORT || 5000;
+    const server = app.listen(
+        PORT, 
+        console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+    );
+
+
+    // Handle unhandled promise Rejection
+    process.on('unhandledRejection', (err, promise) =>  {
+        console.log(`Error: ${err.message}`);
+        // Close server and exir process
+        server.close(() => process.exit(1));
+    });
+
+
