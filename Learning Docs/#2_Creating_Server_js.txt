@@ -8,7 +8,7 @@ create config folder => create config.env
     NODE_ENV=developemnt
     PORT=5000
 
-Load config variables in the server.js => dotenv.comfig({ path: './config/config.env' })
+Load config variables in the server.js => dotenv.config({ path: './config/config.env' })
 
 initialize app variable with express
 

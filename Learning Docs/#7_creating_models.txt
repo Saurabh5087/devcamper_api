@@ -1,0 +1,42 @@
+NODE APPLICATION        ::  server  => router     =>  controller  =>  models        => Output that user see.
+RESTAURANT / HOTEL      ::  Waiter  => Menu Card  =>  Chef        =>  Ingredients   => Food that customer eats.           
+
+server.js               => Entry point of the backend application.
+                           the server is the component that receives incoming requests 
+                           from clients and sends back responses. It's responsible for 
+                           managing the communication between the client and the other 
+                           components of the application.
+
+routes/bootcamps.js     =>  the router in a Node.js application guides incoming 
+                            requests to the appropriate controller or handler based 
+                            on the URL and HTTP method.
+
+controller/bootcamp.js  => Holds the actual code logic of how the server will behave 
+                           after correct routing has been done.
+                           processes the incoming requests and generates responses. 
+
+                           It takes the input from the client (usually through the router), 
+                           processes it, and sends a response back to the client
+
+models/Bootcamp.js      => a controller needs data to process an incoming request. 
+                           In a Node.js application, the models represent the data 
+                           and the business logic that is used by the controllers 
+                           to generate responses. They define the structure of the 
+                           data and how it can be accessed or manipulated by the 
+                           controllers.
+
+                           Step 1: require mongoose
+                           Step 2: create a Schema
+
+                                    const SchemaName = new mongoose.Schema({
+                                            keyword: {
+                                                type: String,
+                                                required: [true, 'Please add a name'],
+                                                unique: true,
+                                                trim: true,
+                                                maxlength: [50, 'Name can not be more than 50 characters']
+                                            }
+                                    }); 
+                            
+                            Step 3: module.exports = mongoose.model('Name_Of_Model', SchemaName);
+

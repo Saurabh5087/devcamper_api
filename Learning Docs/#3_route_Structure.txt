@@ -1,6 +1,25 @@
 ROUTE STRUCTURE
 
 /api/v1/bootcamps
+    GET     /       => getBootcamps();
+    GET     /:id    => getBootcamp();
+    POST    /       => createBootcamps();
+    PUT     /:id    => updateBootcamp();
+    DELETE  /:id    => deleteBootcamp();
+
+    All the codes of the above methods will be stored in a different folder called controllers,
+    inside bootcamps.js file.
+
+    Also before defining each function we have to use exports keyword in the controller file.
+
+    Create a new folder named routes to store all the routes files and at last line of route 
+    file will be module.exports=router;
+
+    require this new routes files in the server.js
+
+    Mount the router onto a specific url by using app.use();
+
+
 /api/v1/courses
 /api/v1/reviews
 /api/v1/auth
@@ -8,10 +27,8 @@ ROUTE STRUCTURE
 
 <================================================>
 
-Create a new folder name routes to store all the routes files and at last module.exports=router;
 
-require this new routes files in the server.js
 
-Mount the router onto a specific url by using app.use();
+
 
 <================================================>
