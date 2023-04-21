@@ -1,0 +1,85 @@
+Our bootcamp controller is a middleware.
+We have used the try catch block for catching error.
+
+In the catch block we can just call next(err);
+
+We have access to "next()" method because our bootcamp is middleware also in the,
+bootcamp controller js file all the CRUD functions have three input parameters (req, res, next).
+
+In the server.js file we used the middleware => app.use('/api/v1/bootcamps', bootcamps);
+
+If we want to call the errorHandler middleware in the bootcamp.js controller file we have to call the error 
+handler after " app.use('/api/v1/bootcamps', bootcamps); " this line.
+
+First of all in the middleware folder create error.js file.
+        const errorHandler = (err, req, res, next) => {
+
+            // Log to console for the developer
+            console.log(err.stack.red);
+
+            res.status(500).json({
+                success: false,
+                error: err.message
+            });
+        };
+
+        module.exports = errorHandler;
+
+Now in server.js file 
+    const errorHandler = require('./middleware/error');
+
+    and after => app.use('/api/v1/bootcamps', bootcamps); this line
+    add the next line
+    app.use(errorHandler);
+
+_________________________________________________________________________________________________
+
+Next STEPS
+    Create a new folder :: utils (Anything that is not middleware, something like helper functions or utility)
+    
+    In this utils folder create errorResponse.js
+
+            class ErrorResponse extends Error {
+                constructor (message, statusCode) {
+                    super(message);
+                    this.statusCode = statusCode;
+                }
+            }
+
+            module.exports = ErrorResponse;
+
+_________________________________________________________________________________________________
+
+We will use this utilty class errorResponse in our bootcamp.js controller middleware.
+
+when we catch an error we will just call the next middleware :
+    next(new ErrorResponse(`Bootcamp not found with the ${req.params.id}`, 404));
+
+_________________________________________________________________________________________________
+
+Code logic path when error occurs ::
+
+step 1: Server gets a request to get a bootcamp with some wrong ID  ---------- (server.js)
+
+Step 2: Server will use the router middleware app.use('/api/v1/bootcamps', bootcamps). ---------- (server.js)
+
+step 3: The router middleware will check the url and route the request to the correct  ---------- (routes/bbotcamp.js)
+        bootcamp.js controller middleware method called getBootcamp.
+
+step 4: The controller logic will ""try"" to find the bootcamp in the database with the wrong ID. ---------- (controllers/bootcamp.js)
+        Once the controller realizes that the ID is wrong or the ID does not exists it will ""catch"" the error.
+
+step 5: The controller will tell the server code to call the next middleware by using the ""next()"" method.  ---------- (controllers/bootcamp.js)
+        Also it will pass a new ErrorResponse Object in the next() method ::
+                new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
+
+step 6: Server will get this new next() request made by the controller middleware and it will  in its code find the next middleware.
+        Server will find the app.use(errorHandler); in its code.
+        The errorhandler will also receive the new ErrorResponse passed to it by the controller  ----- (server.js) --- (middleware/error.js which has the errorHandler function)
+
+step 7: errorHandler will use this new ErrorResponse object passed to it, and will send a response status and message to 
+        the server and the server will send the response to the client. ---------- (middleware/error.js)
+
+_________________________________________________________________________________________________
+
+
