@@ -16,3 +16,4 @@ router.route('/:id').get(getCourse).put(updateCourse).delete(deleteCourse);
 
 
 module.exports = router;
+
